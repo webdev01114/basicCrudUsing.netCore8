@@ -1,0 +1,90 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model EcommerceShoppingApp.Models.Product
+@if (@ViewBag.ProductDetails != null)
+{
+    <h1 style="text-align:center;margin-top:50px; margin-bottom:50px;">Edit Product Details</h1>
+}
+
+@if (@ViewBag.ProductDetails == null)
+{
+    <h1 style="text-align:center;margin-top:50px; margin-bottom:50px;">Add Product Details</h1>
+
+}
+
+<div class="col-md-12 mt-3 card" style="width:50%; margin:0 auto;padding: 10px;">
+    <form method="POST" asp-controller="Admin" asp-action="AddProduct" enctype="multipart/form-data">
+        @if (@ViewBag.ProductDetails != null)
+        {
+            <input type="text" value="@ViewBag.ProductDetails.pId" asp-for="pId" class="form-control" id="pId">
+        }
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group mb-3">
+            <label asp-for="pName">Product Name</label>
+            @if (@ViewBag.ProductDetails != null)
+            {
+                <input value="@ViewBag.ProductDetails.pName" type="text" asp-for="pName" class="form-control" id="pName">
+            }
+            @if (@ViewBag.ProductDetails == null)
+            {
+                <input type="text" asp-for="pName" class="form-control" id="pName">
+            }
+            
+            <span asp-validation-for="pName" class="text-danger"></span>
+        </div>
+    
+        <div class="form-group mb-3">
+            <label asp-for="pDesc">Product Description</label>
+            @if (@ViewBag.ProductDetails != null)
+            {
+                <textarea asp-for="pDesc" class="form-control" id="pDesc" rows="3">
+                    @ViewBag.ProductDetails.pDesc 
+            </textarea>
+            }
+            @if (@ViewBag.ProductDetails == null)
+            {
+                <textarea asp-for="pDesc" class="form-control" id="pDesc" rows="3"></textarea>
+            }
+            <span asp-validation-for="pDesc" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="pPrice">Product Price</label>
+            @if (@ViewBag.ProductDetails != null)
+            {
+                <input value="@ViewBag.ProductDetails.pPrice" type="number" asp-for="pPrice" class="form-control" id="pPrice">
+            }@if (@ViewBag.ProductDetails == null)
+            {
+                <input type="number" asp-for="pPrice" class="form-control" id="pPrice">
+            }
+            <span asp-validation-for="pPrice" class="text-danger"></span>
+        </div>
+        <div class="form-group custom-file mt-3 mb-3">
+            <input type="file" asp-for="Pic" class="custom-file-input" id="pImg">
+            @if (@ViewBag.ProductDetails != null)
+            {
+                <input asp-for="pImg" type="hidden" value="@ViewBag.ProductDetails.pImg" />
+            }
+            @if (@ViewBag.ProductDetails != null)
+            {
+                <input asp-for="pImg" type="hidden"  />
+            }
+            <span asp-validation-for="pImg" class="text-danger"></span>
+        </div>
+        @if (@ViewBag.ProductDetails != null){
+            <div class="form-group">
+
+                <img src="../products/@ViewBag.ProductDetails.pImg" width="100" heigth="100">
+                <p>@ViewBag.ProductDetails.pImg</p>
+            </div>
+        }
+        <div class="form-group mt-3" style="text-align:center;">
+            <button type="submit" class="btn btn-primary" style="width: 50%;margin: 0 auto;">
+                Save
+            </button>
+        </div>
+
+    </form>
+</div>

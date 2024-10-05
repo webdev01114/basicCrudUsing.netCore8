@@ -1,0 +1,68 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<EcommerceShoppingApp.Models.Cart>
+<h1 style="
+    text-align: center;
+    margin-bottom: 51px;
+    margin-top: 50px;
+    text-decoration: underline;
+">
+    Cart Items
+</h1>
+<div class="row">
+    <div class="col-md-8">
+        <div class="card" style="padding:5px;">
+        <table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                 Image
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Price
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CProductName)
+                </td>
+         
+                <td><img src="../products/@item.CProductImage" width="100" heigth="100" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CProductDesc)
+                </td>
+                <td> @Html.DisplayFor(modelItem => item.CProductPrice)</td>
+                <td>
+
+                    <a href="@Url.Action("RemoveCartItem","User",item)">Delete</a>
+                </td>
+            </tr>
+        }
+        
+    </tbody>
+</table>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card" style="padding:5px;">
+            <p style="font-size:16px;"><b>Total Items - </b><span>@ViewBag.TotalItems</span></p>
+            <p style="font-size:16px;"><b>Total Price - </b><span>@ViewBag.TotalPrice</span></p>
+            <a asp-action="ProcessOrder" asp-controller="User" class="btn btn-primary" style="width:100%;margin-top: 61px;">Checkout</a>
+        </div>
+    </div>
+</div>

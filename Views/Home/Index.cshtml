@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model IEnumerable<EcommerceShoppingApp.Models.Product>
+
+<div class="text-center">
+    <h1 class="display-4" style="margin-top: 50px;margin-bottom: 50px;">
+        Welcome To shopping Store
+    </h1>
+</div>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3">
+            <div class="card mb-3" style="width: 18rem;">
+                <img src="./products/@item.pImg" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title">@item.pName</h5>
+                    <p class="card-text">@item.pDesc</p>
+                    <p>Price - <span>@item.pPrice</span></p>
+                    @if (@item.isDisabledAddToCart == 1)
+                    {
+                        <a asp-action="CartList" asp-controller="User" 
+                        class="btn btn-primary">Add To Cart</a>
+                    }
+                    @if (@item.isDisabledAddToCart == 0){
+                    <a  href="@Url.Action("AddToCart","Home",item)"
+                       class="btn btn-primary">Add To Cart</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
